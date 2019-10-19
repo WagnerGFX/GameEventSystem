@@ -3,27 +3,31 @@ using UnityEngine;
 public class GameEventExample : MonoBehaviour
 {
     [SerializeField] GameEventContainer globalEvSys = null;
-    
-    void Start()
+
+    private static OnSomethingHappened oArg = new OnSomethingHappened();
+
+    void Start() //Or OnEnable()
 	{
-		globalEvSys?.EventManager?.RegisterListener<OnSomethingHappened>(OnSomethingHappened);
+		globalEvSys?.RegisterListener<OnSomethingHappened>(OnSomethingHappened);
     }
     
-    void OnDestroy()
-	{
-		globalEvSys?.EventManager?.UnregisterListener<OnSomethingHappened>(OnSomethingHappened);
+    void OnDestroy() //Or OnDisable()
+    {
+		globalEvSys?.UnregisterListener<OnSomethingHappened>(OnSomethingHappened);
     }
 	
-	void OnValidate() {
+	void OnValidate()
+    {
         if (globalEvSys == null) {
             Debug.LogWarning(name + ": Global Event Manager not set. Raised events will be ignored.", this);
         }
     }
     
-	public void MakeSomethingHappen() {
+	public void MakeSomethingHappen()
+    {
 		EventController.eventCount += 1;
-		globalEvSys?.EventManager?.RaiseEvent(this, new OnSomethingHappened());
-	}
+		globalEvSys?.RaiseEvent(this, oArg);
+    }
 	
     public void OnSomethingHappened(object sender, OnSomethingHappened eSpin)
 	{
@@ -38,4 +42,5 @@ public class GameEventExample : MonoBehaviour
 	//You can register/unregister the listeners when the object is enabled/disabled.
 	//You can have multiple event managers. Useful to send/receive event globally and locally.
 	//OnValidate can give warnings when the manager is not set in the inspector.
+	//Use a static empty argument if there is no data transfer to minimize memory usage.
 }

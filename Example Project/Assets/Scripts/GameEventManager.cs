@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class GameEventManager
+public class GameEventManager: IGameEventManager
 {
     Dictionary<Type, object> eventListeners = new Dictionary<Type, object>();
 
@@ -17,7 +17,7 @@ public class GameEventManager
 
         InstantiateListener<T>(eventType);
 
-        GameEvent<T> oEvent = (GameEvent<T>)eventListeners[eventType];
+        GameEvent<T> oEvent = eventListeners[eventType] as GameEvent<T>;
         oEvent.RegisterListener(listener);
     }
 
@@ -27,7 +27,7 @@ public class GameEventManager
 
         if (CheckListeners(eventType))
         {
-            GameEvent<T> oEvent = (GameEvent<T>)eventListeners[eventType];
+            GameEvent<T> oEvent = eventListeners[eventType] as GameEvent<T>;
             oEvent.UnregisterListener(listener);
         }
     }
