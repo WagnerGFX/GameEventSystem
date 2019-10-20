@@ -1,8 +1,9 @@
 using UnityEngine;
+using EventSystem;
 
-public class GameEventExample : MonoBehaviour
+public class Example : MonoBehaviour
 {
-    [SerializeField] GameEventContainer globalEvSys = null;
+    [SerializeField] EventHubContainer globalEvSys = null;
 
     private static OnSomethingHappened oArg = new OnSomethingHappened();
 
@@ -19,19 +20,19 @@ public class GameEventExample : MonoBehaviour
 	void OnValidate()
     {
         if (globalEvSys == null) {
-            Debug.LogWarning(name + ": Global Event Manager not set. Raised events will be ignored.", this);
+            Debug.LogWarning(name + ": Global Event System not set. Raised events will be ignored.", this);
         }
     }
     
 	public void MakeSomethingHappen()
     {
-		EventController.eventCount += 1;
+		TestController.eventCount += 1;
 		globalEvSys?.RaiseEvent(this, oArg);
     }
 	
-    public void OnSomethingHappened(object sender, OnSomethingHappened eSpin)
+    public void OnSomethingHappened(object sender, OnSomethingHappened eArg)
 	{
-		EventController.messageCount += 1;
+        TestController.messageCount += 1;
     }
 	
 	

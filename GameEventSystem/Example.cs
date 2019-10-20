@@ -1,9 +1,10 @@
 using UnityEngine;
+using EventSystem;
 
-public class GameEventExample : MonoBehaviour
+public class Example : MonoBehaviour
 {
-    [SerializeField] GameEventContainer globalEvSys = null;
-	[SerializeField] GameEventComponent localEvSys = null;
+    [SerializeField] EventHubContainer globalEvSys = null;
+	[SerializeField] EventHubComponent localEvSys = null;
     
     void Start()
 	{
@@ -20,11 +21,11 @@ public class GameEventExample : MonoBehaviour
     void OnValidate()
     {
         if (globalEvSys == null) {
-            Debug.LogWarning(name + ": Global Event Manager not set. Raised events will be ignored.", this);
+            Debug.LogWarning(name + ": Global Event System not set. Raised events will be ignored.", this);
         }
 		
 		if (localEvSys == null) {
-            Debug.LogWarning(name + ": Local Event Manager not set. Raised events will be ignored.", this);
+            Debug.LogWarning(name + ": Local Event System not set. Raised events will be ignored.", this);
         }
     }
 	
@@ -33,7 +34,7 @@ public class GameEventExample : MonoBehaviour
 		globalEvSys?.RaiseEvent(this, new OnSomethingHappened(someValue));
 	}
 	
-    public void OnSomethingHappened(object sender, OnSomethingHappened eSpin)
+    public void OnSomethingHappened(object sender, OnSomethingHappened eArg)
 	{
 		//Do Something.
     }

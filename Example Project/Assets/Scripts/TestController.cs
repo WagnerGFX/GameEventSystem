@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
-public class EventController : MonoBehaviour
+public class TestController : MonoBehaviour
 {
     #region Properties
     [SerializeField] GameObject ObjectPrefab = null;
@@ -43,15 +42,18 @@ public class EventController : MonoBehaviour
         UpdateUI();
     }
     
-    public void ActivateEvents() {
+    public void ActivateEvents()
+    {
         is_eventActive = true;
     }
     
-    public void DeactivateEvents() {
+    public void DeactivateEvents()
+    {
         is_eventActive = false;
     }
     
-    public void ClearData() {
+    public void ClearData()
+    {
         eventCount = 0;
         eventLastSec = 0;
         messageCount = 0;
@@ -59,13 +61,15 @@ public class EventController : MonoBehaviour
         timeSeconds = 1f;
     }
     
-    public void ClearObjects() {
+    public void ClearObjects()
+    {
         for(int i = transform.childCount-1; i >= 0; i--) {
                 Destroy(transform.GetChild(i).gameObject);
             }
     }
     
-    public void ChangeObjects(int amount){
+    public void ChangeObjects(int amount)
+    {
         bool is_adding = (amount > 0);
         
         if (is_adding) {
@@ -88,7 +92,8 @@ public class EventController : MonoBehaviour
     
     #region Methods
     
-    void CheckInput() {
+    void CheckInput()
+    {
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             ActivateEvents();
         }
@@ -103,9 +108,10 @@ public class EventController : MonoBehaviour
         }
     }
     
-    void CallEvents() {
+    void CallEvents()
+    {
         if (is_eventActive) {
-            GameEventExample[] objList = GetComponentsInChildren<GameEventExample>();
+            Example[] objList = GetComponentsInChildren<Example>();
             
             for (int i = 0; i < objList.Length; i++) {
                 objList[i].MakeSomethingHappen();
@@ -113,7 +119,8 @@ public class EventController : MonoBehaviour
         }
     }
     
-    void UpdateUI() {
+    void UpdateUI()
+    {
         timeSeconds += Time.deltaTime;
         framesSecond++;
         
@@ -135,7 +142,8 @@ public class EventController : MonoBehaviour
     #endregion
         
     #region Functions
-    string FormatNumber(long number){
+    string FormatNumber(long number)
+    {
         return number.ToString("###,###,###,###,##0");
     }
     #endregion
