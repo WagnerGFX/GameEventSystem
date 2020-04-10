@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7808691098316598724}
-  - component: {fileID: 7808691098316598727}
+  - component: {fileID: 9116139589433012841}
+  - component: {fileID: 8233703167888969518}
   m_Layer: 0
   m_Name: GameEvObj
   m_TagString: Untagged
@@ -31,7 +32,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7808691098316598727
+--- !u!114 &9116139589433012841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808691098316598725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed818d28084e88469bd054f82c66fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventHubMirror: {fileID: 11400000, guid: da7d4d076f034bb43bada8f2789743d6, type: 2}
+--- !u!114 &8233703167888969518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,4 +57,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d967142e7059b9449b258ea08e2852d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalEvSys: {fileID: 11400000, guid: da7d4d076f034bb43bada8f2789743d6, type: 2}

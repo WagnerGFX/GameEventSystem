@@ -4,16 +4,16 @@ namespace EventSystem
 {
     public interface IEventHub
     {
-        void RegisterListener<T>(EventHandler<T> listener) where T : EventArgs;
+        void RegisterListener<T>(Action<T> listener) where T : IEventArgs;
 
 
-        void UnregisterListener<T>(EventHandler<T> listener) where T : EventArgs;
+        void UnregisterListener<T>(Action<T> listener) where T : IEventArgs;
 
 
-        void RaiseEvent<T>(object sender, T eventInfo) where T : EventArgs;
+        void RaiseEvent<T>(T eventInfo) where T : IEventArgs;
 
 
-        void ClearListeners<T>() where T : EventArgs;
+        void ClearListeners<T>() where T : IEventArgs;
 
 
         void ClearAllListeners();

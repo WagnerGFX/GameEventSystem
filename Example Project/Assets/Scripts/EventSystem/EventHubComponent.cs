@@ -1,40 +1,40 @@
-using System;
 using UnityEngine;
 
 namespace EventSystem
 {
-    //Encapsulates EventHub in a Component to create local managers.
-    public class EventHubComponent : MonoBehaviour, IEventHub
+    /// <summary>
+    /// Encapsulates the EventHub in a Component for easy access between scripts in the same GameObject
+    /// </summary>
+    public class EventHubComponent : MonoBehaviour, IEventHubReference
     {
-        private EventHub _evHub = new EventHub();
+        IEventHub objEventHub = null;
+        [SerializeField] EventHubContainer eventHubMirror = null;
 
-        public void RegisterListener<T>(EventHandler<T> listener) where T : EventArgs
+        public bool HasEventHub()
         {
-            _evHub.RegisterListener<T>(listener);
+            return (objEventHub != null);
         }
 
-
-        public void UnregisterListener<T>(EventHandler<T> listener) where T : EventArgs
+        public void SetEventHub(IEventHub newEventHub)
         {
-            _evHub.UnregisterListener<T>(listener);
+            this.objEventHub = newEventHub;
         }
 
-
-        public void RaiseEvent<T>(object sender, T eventInfo) where T : EventArgs
+        public IEventHub GetEventHub()
         {
-            _evHub.RaiseEvent(sender, eventInfo);
+            //If any script make a request during Start()
+            Start();
+            
+            return objEventHub;
         }
 
-
-        public void ClearListeners<T>() where T : EventArgs
+        void Start()
         {
-            _evHub.ClearListeners<T>();
-        }
-
-
-        public void ClearAllListeners()
-        {
-            _evHub.ClearAllListeners();
+            //Auto-load if the reference exists
+            if (objEventHub == null && eventHubMirror != null)
+            {
+                objEventHub = eventHubMirror.GetEventHub();
+            }
         }
     }
 }

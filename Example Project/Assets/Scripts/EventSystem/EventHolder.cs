@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Linq;
 
-/// <summary>
-/// Encapsulates the event handler to allow dynamic instancing for inherited EventArgs types.
-/// </summary>
-/// <typeparam name="T">Type must inherit from EventArgs</typeparam>
-
 namespace EventSystem
 {
-    public class EventHolder<T> where T : EventArgs
+    /// <summary>
+    /// Encapsulates the event handler to allow dynamic instancing for implemented IEventArgs types.
+    /// </summary>
+    /// <typeparam name="T">Type must inherit from IEventArgs</typeparam>
+    public class EventHolder<T> : IEventHolderClear where T : IEventArgs
     {
-        event EventHandler<T> evHandler;
+        event Action<T> evHandler;
 
-        public void RegisterListener(EventHandler<T> listener)
+        public void RegisterListener(Action<T> listener)
         {
             if (evHandler == null || !evHandler.GetInvocationList().Contains(listener))
             {
@@ -20,14 +19,14 @@ namespace EventSystem
             }
         }
 
-        public void UnregisterListener(EventHandler<T> listener)
+        public void UnregisterListener(Action<T> listener)
         {
             evHandler -= listener;
         }
 
-        public void RaiseEvent(object sender, T info)
+        public void RaiseEvent(T eventArgs)
         {
-            evHandler?.Invoke(sender, info);
+            evHandler?.Invoke(eventArgs);
         }
 
         public void ClearListeners()

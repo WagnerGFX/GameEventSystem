@@ -1,41 +1,28 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace EventSystem
 {
-    //Encapsulates EventHub in a ScriptableObject to create global managers.
+    /// <summary>
+    /// Encapsulates the EventHub in a ScriptableObject for easy setup of Prefabs and Scenes
+    /// </summary>
     [CreateAssetMenu(menuName = "EventHubContainer")]
-    public class EventHubContainer : ScriptableObject, IEventHub
+    public class EventHubContainer : ScriptableObject, IEventHubReference
     {
-        private EventHub _evHub = new EventHub();
+        IEventHub objEventHub = null;
 
-        public void RegisterListener<T>(EventHandler<T> listener) where T : EventArgs
+        public bool HasEventHub()
         {
-            _evHub.RegisterListener<T>(listener);
+            return (objEventHub != null);
         }
 
-
-        public void UnregisterListener<T>(EventHandler<T> listener) where T : EventArgs
+        public void SetEventHub(IEventHub newEventHub)
         {
-            _evHub.UnregisterListener<T>(listener);
+            this.objEventHub = newEventHub;
         }
 
-
-        public void RaiseEvent<T>(object sender, T eventInfo) where T : EventArgs
+        public IEventHub GetEventHub()
         {
-            _evHub.RaiseEvent(sender, eventInfo);
-        }
-
-
-        public void ClearListeners<T>() where T : EventArgs
-        {
-            _evHub.ClearListeners<T>();
-        }
-
-
-        public void ClearAllListeners()
-        {
-            _evHub.ClearAllListeners();
+            return objEventHub;
         }
     }
 }

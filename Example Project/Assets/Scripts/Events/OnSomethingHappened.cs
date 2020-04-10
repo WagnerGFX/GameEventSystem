@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace EventSystem
+﻿namespace EventSystem
 {
-    public class OnSomethingHappened : EventArgs
+    public struct OnSomethingHappened : IEventArgs
     {
-        public OnSomethingHappened() { }
+        public object sender { get; }
+
+        public OnSomethingHappened(object sender)
+        {
+            this.sender = sender;
+        }
     }
 }
