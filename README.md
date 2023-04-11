@@ -1,3 +1,7 @@
+> **Warning** : : :
+> **This repository has been archived and the project became a part of [UnityCorePackage](https://github.com/WagnerGFX/UnityCorePackage).**
+
+
 # Game Event System
 - Flexible event system for Unity projects.
 - Decouple the communication between many GameObjects and avoid a null reference hell.
